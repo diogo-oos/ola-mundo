@@ -4,13 +4,21 @@ import { useState } from "react"
 
 
 const Login = () => {
-    const [PARAM_1, PARAM_2] = useState('VALOR_INICIAL')
+    const [values, setValues] = useState({})
 
-    const [email, setEmail] = useState()
-
-    const [senha, setSenha] = useState()
-
-    console.log('E-mail:', email, '\n', 'Senha:', senha);
+    function handleSave(){
+        if(values.email && values.senha){
+            localStorage.setItem('users', JSON.stringify(values))
+            window.location.reload()
+        }
+        else{
+            alert('Por favor, preencha os campos')
+        }
+        
+     
+        
+    }
+    
     return (
         <>
 
@@ -24,23 +32,24 @@ const Login = () => {
                         <h1>Login</h1>
 
                         <Input 
-                        setValue = {setEmail}
+                        setValues = {setValues}
                         title="E-mail:" 
                         type="text"
                         id="email"
                         name="email"
-                        Digite seu e-mail pessoal
+                        value= {values.email}
                         />
 
                         <Input 
-                        setValue = {setSenha}
+                        setValues = {setValues}
                         title="Senha:" 
                         type="password"
                         id="senha"
                         name="senha"
+                        value= {values.senha}
                         />
 
-                        <Botao>ENTRAR</Botao>
+                        <Botao onClick={handleSave} >ENTRAR</Botao>
 
                     </div>
                 </section>

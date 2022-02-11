@@ -1,11 +1,12 @@
 export const Input = (props) => {
 
     const handleChange = (event) => {
-        const email = event.target.value
-        const senha = event.target.value 
+        const value = event.target.value
         
-        props.setValue(email)
-        props.setValue(senha)
+        props.setValues((VALOR_ANTERIOR) =>({
+            ...VALOR_ANTERIOR,
+            [props.name]: value
+        }))
 
         /*function adicionarClasseFloatLon() {
             eidLon.classList.add('float');
@@ -28,7 +29,7 @@ export const Input = (props) => {
     return (
         <div className="form-group">
             <label className="form-label" htmlFor={props.id}>{props.title}</label>
-            <input type={props.type} onChange={handleChange} id={props.id} name={props.name} />
+            <input type={props.type} onChange={handleChange} id={props.id} name={props.name} defaultValue={props.value} />
         </div>
     )
 }

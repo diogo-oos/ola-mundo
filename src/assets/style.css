@@ -79,4 +79,11 @@ label{
     background-color: rgb(145, 145, 233);
 }
 
+img{
+    background-color: blueviolet;
+}
 
+.card{
+    border-radius: 10px;
+    text-align: center;
+}

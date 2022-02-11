@@ -1,7 +1,7 @@
-export const Botao = (props) => {
+export const Botao = ({children, onClick}) => {
     return (
         <div className="area-btn">
-            <button className="btn">{props.children}</button>
+            <button onClick={onClick} className="btn">{children}</button>
         </div>
     )
 }
