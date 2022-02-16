@@ -1,25 +1,57 @@
+import { useEffect, useState } from "react"
+import { Card } from "../components/ul/card"
+import { getImagePokemon } from '../utils/helpers'
+
 export default function Pokedex() {
-    const pokemon = {
-        name: 'Ditto',
-        image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/132.png'
-    }
+    const [pokemons, setPokemons] = useState([])//array de pokemons
+
+    useEffect(() => {
+
+        return () => {
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=12&offset=1')
+                .then(res => res.json())
+                .then(dados => {
+                    setPokemons(dados.results)
+                })
+                .catch (error => {
+                    console.log('Deu esse erro:', error)
+                })
+                    
+            /*async function chamarPokemons() {
+                try {
+                    const promisse = await fetch('https://pokeapi.co/api/v2/pokemon?limit=12&offset=0')
+                    const res = await promisse.json()
+                    setPokemons(res.results)
+                    
+                    res.forEach ((item) => {
+                        const promisse2 = await fetch(res.url)
+                        const res2 = await promisse2.json()
+                    })
+
+
+                }
+                catch (error) {
+                    console.log('Deu esse erro:', error)
+                }
+            }
+            chamarPokemons()*/
+        }
+    }, [])
+
     return (
         <>
             <header>
                 <div className="container">
                     <h1>Pokedex</h1>
+
                     <div className="row row-cols-2">
                         {
-                            pokemon.map((poke, indice) => (
-                                <div key={indice} className="col-12 col-sm-6 col-md-4">
-                                    <div className="card">
-                                        <img className="img-fluid" src={pokemon.image} alt={pokemon.name} title={pokemon.name} />
-                                        <h2>{pokemon.name}</h2>
-                                    </div>
-                                </div>
+                            pokemons.map((poke, indice) => (
+                                <Card key={indice} image={getImagePokemon(poke.url)} name={poke.name} />
                             ))
                         }
                     </div>
+
                 </div>
             </header>
 
